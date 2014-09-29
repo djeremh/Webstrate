@@ -81,7 +81,7 @@ webserver.get '/:id', (req, res) ->
             res.sendFile __dirname+'/html/_client.html'
     else
         res.redirect '/frontpage'
-        
+
 webserver.get '/', (req, res) ->
     res.redirect '/frontpage'
 

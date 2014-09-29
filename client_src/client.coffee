@@ -19,15 +19,19 @@ $(document).ready () =>
     document.title = "Webstrate - " + sharejsDoc
     if sharejsDoc.length == 0
         throw "Error: No document id provided"
-    
+
     socket = new BCSocket null, {reconnect: true}
     window._sjs = new sharejs.Connection socket
-    
-    doc = _sjs.get 'webstrates', sharejsDoc 
-    
+
+    doc = _sjs.get 'webstrates', sharejsDoc
+    container = document.querySelector ".container"
+
+    $(".header").find('h1').append(" - " + sharejsDoc)
     doc.subscribe()
-    $(document).empty()
     doc.whenReady () ->
-        window.dom2shareInstance = new DOM2Share doc, document, () ->
+        window.dom2shareInstance = new DOM2Share doc, container, () ->
             event = new CustomEvent "loaded", { "detail": "The share.js document has finished loading" }
             document.dispatchEvent event
+            editor = new MediumEditor(document.getElementById("wysiwyg-editor"), {
+                'buttons': ['bold', 'italic', 'underline', 'superscript', 'subscript', 'anchor', 'image', 'header1', 'header2', 'quote', 'orderedlist', 'unorderedlist', 'pre', 'indent', 'outdent']
+            })

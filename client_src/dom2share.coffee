@@ -17,7 +17,7 @@ limitations under the License.
 root = exports ? window
 
 class root.DOM2Share
-    
+
     constructor: (@doc, @targetDOMElement, callback = ->) ->
         if not @doc.type
             console.log "Creating new doc", @doc.name
@@ -27,21 +27,21 @@ class root.DOM2Share
             return
         if @targetDOMElement.parentNode? #Its not the document root
             if not @doc.getSnapshot()
-                body = ["div",{id:"doc_"+@doc.name, class:"document"}]
+                body = ["div", {"id": "wysiwyg-editor"}]
                 @doc.submitOp([{"p":[], "oi":body}])
         else #Its the document root
             if not @doc.getSnapshot()
-                body = ["html", {}, ['body', {}]]
+                body = ["div", {"id": "wysiwyg-editor"}]
                 @doc.submitOp([{"p":[], "oi":body}])
         @loadDocIntoDOM()
         callback @doc, @rootDiv
-        
+
     loadDocIntoDOM: () ->
         @targetDOMElement.appendChild($.jqml(@doc.getSnapshot())[0])
-    
+
         @rootDiv = $(@targetDOMElement).children()[0]
         @pathTree = util.createPathTree @rootDiv, null, true
-    
+
         @dmp = new diff_match_patch()
 
         @context = @doc.createContext()
@@ -50,16 +50,16 @@ class root.DOM2Share
             for op in ops
                 ot2dom.applyOp op, @rootDiv
             util.check(@rootDiv, @pathTree)
-        
+
             @observer.observe @rootDiv, { childList: true, subtree: true, attributes: true, characterData: true, attributeOldValue: true, characterDataOldValue: true }
-        
+
         @observer = new MutationObserver (mutations) => @handleMutations(mutations)
         @observer.observe @rootDiv, { childList: true, subtree: true, attributes: true, characterData: true, attributeOldValue: true, characterDataOldValue: true }
-        
+
     disconnect: () ->
         @observer.disconnect()
         @context.destroy()
-        
+
     handleMutations: (mutations) ->
         if not @doc?
             return
@@ -89,7 +89,7 @@ class root.DOM2Share
                         addedPathNode = util.getPathNode(added, mutation.target)
                         targetPathNode = util.getPathNode(mutation.target)
                         if targetPathNode.id == addedPathNode.parent.id
-                            continue    
+                            continue
                     #Add the new node to the path tree
                     newPathNode = util.createPathTree added, util.getPathNode(mutation.target)
                     targetPathNode = util.getPathNode(mutation.target)
@@ -117,5 +117,5 @@ class root.DOM2Share
                     childIndex = targetPathNode.children.indexOf pathNode
                     targetPathNode.children.splice childIndex, 1
                     util.removePathNodes removed, targetPathNode
-                
+
         util.check(@rootDiv, @pathTree)

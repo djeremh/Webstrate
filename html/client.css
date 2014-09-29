@@ -13,3 +13,38 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+body {
+  margin: 0;
+}
+
+.header {
+  position : absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #F1F1F1;
+  padding: 30px 20px;
+}
+
+.header h1 {
+  color: #474D57;
+  margin: 0;
+}
+
+.container {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  padding: 30px 20px;
+}
+.container > * {
+  width: 100%;
+  height: 100%;
+}
+
+#wysiwyg-editor {
+  overflow: auto;
+}

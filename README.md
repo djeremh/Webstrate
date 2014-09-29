@@ -14,16 +14,17 @@ To install:
  * Clone this repository
  * From the repository root do:
     * npm install
+    * bower install
     * cake build
     * coffee webstrate.coffee
- 
+
 Usage
 =====
 Webstrate serves (and creates) any named webpage you ask for.<br>
 Simply navigate your browser* to http://localhost:7007/[some_page_name].<br>
 Now any changes you make to the DOM will be persisted and distributed to any other clients that may have the page open.
 
-\* Webstrate is currently only tested to work in Chrome Version 37.0.2062.120 
+\* Webstrate is currently only tested to work in Chrome Version 37.0.2062.120
 
 Disclaimer
 ==========
