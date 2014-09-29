@@ -27,11 +27,11 @@ class root.DOM2Share
             return
         if @targetDOMElement.parentNode? #Its not the document root
             if not @doc.getSnapshot()
-                body = ["div", {"id": "wysiwyg-editor"}]
+                body = ["div", {}]
                 @doc.submitOp([{"p":[], "oi":body}])
         else #Its the document root
             if not @doc.getSnapshot()
-                body = ["div", {"id": "wysiwyg-editor"}]
+                body = ["div", {}]
                 @doc.submitOp([{"p":[], "oi":body}])
         @loadDocIntoDOM()
         callback @doc, @rootDiv

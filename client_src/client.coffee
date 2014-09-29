@@ -32,6 +32,7 @@ $(document).ready () =>
         window.dom2shareInstance = new DOM2Share doc, container, () ->
             event = new CustomEvent "loaded", { "detail": "The share.js document has finished loading" }
             document.dispatchEvent event
+            $(container).children()[0].id = "wysiwyg-editor"
             editor = new MediumEditor(document.getElementById("wysiwyg-editor"), {
                 'buttons': ['bold', 'italic', 'underline', 'superscript', 'subscript', 'anchor', 'image', 'header1', 'header2', 'quote', 'orderedlist', 'unorderedlist', 'pre', 'indent', 'outdent']
             })
